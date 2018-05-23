@@ -1,4 +1,4 @@
-class Application:
+ class Application:
         def __init__(self, app_name, start_time, end_time, app_id):
                 self.app_name = app_name
                 self.start_time = start_time
@@ -28,7 +28,7 @@ class SortedOrder:
                 self.revenue = revenue
 
                 
-#Создаем пустые списки для последующего заполнения                
+#Creating empty lists for filling                
 apps = []
 orders = []
 links = []

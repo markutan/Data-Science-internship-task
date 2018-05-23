@@ -41,7 +41,7 @@ a1 = pd.read_csv('apps.csv', parse_dates=['StartTime','EndTime'])       # Parsin
 o1 = pd.read_csv('orders.csv')                                          # better representation
 l1 = pd.read_csv('link_data.csv')
 
-# Переносим данные из dataframe'ов в списки
+# Transfering data from dataframe's to lists
 a2 = a1.get_values()
 o2 = o1.get_values()
 l2 = l1.get_values()
@@ -55,7 +55,7 @@ for row in o2:
 for row in l2:
     links.append(Link(row[0], row[1], row[2], row[3]))
 
-# Сортируем список orders по убыванию
+# Sorting orders list in descendant order
 sorted_by_income = sorted(orders, key = lambda session: session.income, reverse = True)
 
 # Связываем между собой данные из списков apps, links, orders.

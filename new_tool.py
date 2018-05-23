@@ -1,4 +1,4 @@
- class Application:
+﻿ class Application:
         def __init__(self, app_name, start_time, end_time, app_id):
                 self.app_name = app_name
                 self.start_time = start_time
@@ -28,20 +28,20 @@ class SortedOrder:
                 self.revenue = revenue
 
                 
-#Creating empty lists for filling                
+# Creating empty lists for filling                
 apps = []
 orders = []
 links = []
 sapps = []
 
-#Используя библиотеку pandas, получаем данные из scv-файлов в dataframe'ы
+# Using pandas library, getting data from scv-files in dataframe's
 import pandas as pd
 
-a1 = pd.read_csv('apps.csv', parse_dates=['StartTime','EndTime'])       #Парсим входные StartTime, EndTime для
-o1 = pd.read_csv('orders.csv')                                          #получения удобного формата даты
+a1 = pd.read_csv('apps.csv', parse_dates=['StartTime','EndTime'])       # Parsing input StartTime, EndTime for
+o1 = pd.read_csv('orders.csv')                                          # better representation
 l1 = pd.read_csv('link_data.csv')
 
-#Переносим данные из dataframe'ов в списки
+# Переносим данные из dataframe'ов в списки
 a2 = a1.get_values()
 o2 = o1.get_values()
 l2 = l1.get_values()
@@ -55,16 +55,16 @@ for row in o2:
 for row in l2:
     links.append(Link(row[0], row[1], row[2], row[3]))
 
-#Сортируем список orders по убыванию
+# Сортируем список orders по убыванию
 sorted_by_income = sorted(orders, key = lambda session: session.income, reverse = True)
 
-#Связываем между собой данные из списков apps, links, orders.
+# Связываем между собой данные из списков apps, links, orders.
 for s in sorted_by_income:
         for c in links:
                 if str.upper(c.session_id) == str.upper(s.session_id):
                         for a in apps:
                                 if str.upper(a.app_id) == str.upper(c.app_id):
-                                        #Выполняем подсчёт времени выполнения приложений.
+                                        # Выполняем подсчёт времени выполнения приложений.
                                         dif = str(a.end_time - a.start_time)
                                         time_hours = dif.split(' ')[0]
                                         time_minutes = dif.split(':')[1]
@@ -72,15 +72,15 @@ for s in sorted_by_income:
                                         time_to_seconds = float(time_hours)*3600 + float(time_minutes)*60 + float(time_seconds)
                                         if time_to_seconds == 0:
                                                 continue
-                                        #Считаем прибыль/сек, и переводим её в прибыль/час
+                                        # Считаем прибыль/сек, и переводим её в прибыль/час
                                         revenue = round(s.income / time_to_seconds * 3600, 2)
                                         sapps.append(SortedOrder(a.app_name, revenue))
 
-#Сортируем список sapps(сокр. от sortedapps)
+# Сортируем список sapps(сокр. от sortedapps)
 sorted_by_revenue = sorted(sapps, key = lambda x: x.revenue, reverse = True)
 
 
-#Подготавливаем переменные и список для конечного вывода
+# Подготавливаем переменные и список для конечного вывода
 i = 0
 print('Input the number of apps you want to show')
 n = input()
@@ -101,4 +101,4 @@ print('For next hour, the most suitable apps are:')
 for f in final:
         print('"' + f + '"')
 input()
-#Конец файла
+# Конец файла
